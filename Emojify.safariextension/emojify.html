@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Emojify</title>
+  <style>
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+  background: #fcfaf2;
+}
+
+body {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-family: "Helvetica Nenu", Arial, Helvetica, Geneva, sans-serif;
+  font-size: 20px;
+  color: #434343;
+  font-weight: bold;
+}
+
+.emoji {
+  line-height: 33px;
+}
+  </style>
+  <script>
+Array.prototype.random = function() {
+  return this[Math.floor(Math.random() * this.length)];
+};
+
+var generate = function() {
+  var a = [ ["(",")"],
+            ["[", "]"],
+            ["|", "|"],
+            ["{", "}"],
+            ["（", "）"],
+            ["\\", "/"],
+            ["#", "#"],
+            ["《", "》"]
+          ].random();
+  var b = [ ["^", "^"],
+            [">", "<"],
+            ["╹", "╹"],
+            ["`", "´"],
+            ["´", "`"],
+            ["=", "="],
+            ["・", "・"],
+            ["≧", "≦"],
+            ["@", "@"],
+            ["→", "→"],
+            ["Q", "Q"],
+            ["o", "O"],
+            ["π", "π"],
+            ["╯", "╰"],
+            ["⊙", "⊙"],
+            ["〒", "〒"]
+          ].random();
+  var c = [ "x", "∀", "▽", "△", "Д",
+            "◡", "□", "～", "ー", "ェ",
+            "✿","o", "3", "︿", "﹏",
+            "_", "∩", "∪", "▼", "▲",
+            "◆", "◇", "■", "ㅈ", "ㅅ",
+            "ㅆ", "３", "ω",
+          ].random();
+  var d = [ ["Y", "Y"],
+            ["↙", "↗"],
+            ["", ""],
+            ["◐", "◑"],
+            ["↘", "↖"],
+            ["〤", ""],
+            ["", "〤"],
+            ["Σ", ""],
+            ["", "Σ"],
+            ["∫", ""],
+            ["", "∫"],
+            ["<", "/"],
+            ["\\", "/"],
+          ].random();
+  return (d[0]+a[0]+b[0]+c+b[1]+a[1]+d[1]);
+};
+
+var emojify = function() {
+  var cidx, eidx, emojiCount = 5;
+  var containers = document.getElementsByClassName("container");
+  for (cidx = 0; cidx < containers.length; cidx++) {
+    var container = containers[cidx];
+    while (container.firstChild) container.removeChild(container.firstChild);
+
+    for (eidx = 0; eidx < emojiCount; eidx++) {
+      var para = document.createElement("p");
+      para.className += " emoji";
+
+      var emoji = generate();
+      para.appendChild(document.createTextNode(emoji));
+
+      container.appendChild(para);
+    }
+  }
+};
+  </script>
+</head>
+<body>
+<div class="container">
+</div>
+
+<script>
+safari.application.addEventListener("popover", emojify, true);
+</script>
+</body>
+</html>
